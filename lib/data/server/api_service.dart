@@ -12,10 +12,8 @@ class Network {
   /* Http Apis */
 
   static String API_LIST_BANNER = "/v1/banner";
-  static String API_CATEGORY = "/category";
-  static String API_UPDATE = "/posts/"; //{id}
-  static String API_DELETE = "/posts/"; //{id}
 
+  static String API_CATEGORY = "/v1/category";
   /* Http Requests */
 
   static Future<String?> GET(String api, Map<String, dynamic> params) async {
