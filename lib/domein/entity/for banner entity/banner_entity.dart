@@ -1,90 +1,99 @@
-// To parse this JSON data, do
-//
-//     final bannerProducts = bannerProductsFromJson(jsonString);
+class BannerProduct {
+  List<Banners>? banners;
+  String? count;
 
-import 'dart:convert';
+  BannerProduct({this.banners, this.count});
 
-BannerProducts bannerProductsFromJson(String str) =>
-    BannerProducts.fromJson(json.decode(str));
+  BannerProduct.fromJson(Map<String, dynamic> json) {
+    if (json['banners'] != null) {
+      banners = <Banners>[];
+      json['banners'].forEach((v) {
+        banners!.add(Banners.fromJson(v));
+      });
+    }
+    count = json['count'];
+  }
 
-String bannerProductsToJson(BannerProducts data) => json.encode(data.toJson());
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (banners != null) {
+      data['banners'] = banners!.map((v) => v.toJson()).toList();
+    }
+    data['count'] = count;
+    return data;
+  }
+}
 
-class BannerProducts {
-  BannerProducts({
-    required this.id,
-    required this.title,
-    required this.slug,
-    required this.active,
-    required this.image,
-    required this.url,
-    required this.description,
-    required this.lang,
-    required this.price,
-    required this.position,
-    required this.buttonTitle,
-    required this.type,
-    required this.orderNumber,
-  });
+class Banners {
+  String? id;
+  String? title;
+  String? slug;
+  bool? active;
+  String image = '';
+  String? url;
+  String? description;
+  String? lang;
+  int? price;
+  String? buttonTitle;
+  Position? position;
+  String? type;
+  int? orderNumber;
 
-  late final String id;
-  late final String title;
-  late String slug;
-  late bool active;
-  late String image;
-  late String url;
-  late String description;
-  late String lang;
-  late int price;
-  late String buttonTitle;
-  late Position position;
-  late String type;
-  late int orderNumber;
+  Banners(
+      {this.id,
+        this.title,
+        this.slug,
+        this.active,
+        required this.image,
+        this.url,
+        this.description,
+        this.lang,
+        this.price,
+        this.buttonTitle,
+        this.position,
+        this.type,
+        this.orderNumber});
 
-  factory BannerProducts.fromJson(Map<String, dynamic> json) => BannerProducts(
-        id: json["id"] ?? "",
-        title: json["title"] ?? "",
-        slug: json["slug"] ?? "",
-        active: json["active"] ?? false,
-        image: json["image"] ?? "",
-        url: json["url"] ?? "",
-        description: json["description"] ?? "",
-        lang: json["lang"] ?? "",
-        price: json["price"] ?? 0,
-        buttonTitle: json["button_title"] ?? "",
-        position: Position.fromJson(json["position"] ?? {}),
-        type: json["type"] ?? "",
-        orderNumber: json["order_number"] ?? 0,
-      );
+  Banners.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    slug = json['slug'];
+    active = json['active'];
+    image = json['image'];
+    url = json['url'];
+    description = json['description'];
+    lang = json['lang'];
+    price = json['price'];
+    buttonTitle = json['button_title'];
+    position = json['position'] != null
+        ? Position.fromJson(json['position'])
+        : null;
+    type = json['type'];
+    orderNumber = json['order_number'];
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "slug": slug,
-        "active": active,
-        "image": image,
-        "url": url,
-        "description": description,
-        "lang": lang,
-        "price": price,
-        "button_title": buttonTitle,
-        "position": position.toJson(),
-        "type": type,
-        "order_number": orderNumber,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['slug'] = slug;
+    data['active'] = active;
+    data['image'] = image;
+    data['url'] = url;
+    data['description'] = description;
+    data['lang'] = lang;
+    data['price'] = price;
+    data['button_title'] = buttonTitle;
+    if (position != null) {
+      data['position'] = position!.toJson();
+    }
+    data['type'] = type;
+    data['order_number'] = orderNumber;
+    return data;
+  }
 }
 
 class Position {
-  Position({
-    this.id,
-    this.title,
-    this.slug,
-    this.active,
-    this.size,
-    this.description,
-    this.createdAt,
-    this.updatedAt,
-  });
-
   String? id;
   String? title;
   String? slug;
@@ -94,25 +103,37 @@ class Position {
   String? createdAt;
   String? updatedAt;
 
-  factory Position.fromJson(Map<String, dynamic> json) => Position(
-        id: json["id"],
-        title: json["title"],
-        slug: json["slug"],
-        active: json["active"],
-        size: json["size"],
-        description: json["description"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-      );
+  Position(
+      {this.id,
+        this.title,
+        this.slug,
+        this.active,
+        this.size,
+        this.description,
+        this.createdAt,
+        this.updatedAt});
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "slug": slug,
-        "active": active,
-        "size": size,
-        "description": description,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
-      };
+  Position.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    slug = json['slug'];
+    active = json['active'];
+    size = json['size'];
+    description = json['description'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data ={};
+    data['id'] = id;
+    data['title'] = title;
+    data['slug'] = slug;
+    data['active'] = active;
+    data['size'] = size;
+    data['description'] = description;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    return data;
+  }
 }

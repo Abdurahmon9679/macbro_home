@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Price extends StatelessWidget {
+class PriceWidget extends StatelessWidget {
   final String price;
 
-  const Price({Key? key, required this.price}) : super(key: key);
+  const PriceWidget({Key? key, required this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      "от ${price} сум",
+      "от $price\$",
       style: Theme.of(context).textTheme.subtitle1,
     );
   }

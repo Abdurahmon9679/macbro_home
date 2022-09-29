@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:macbro_home/domein/entity/for%20banner%20entity/banner_entity.dart';
 import 'package:macbro_home/presenter/pages/home/widgets/brand_or_model_name.dart';
 import 'package:macbro_home/presenter/pages/home/widgets/sale_badge.dart';
 import 'package:macbro_home/presenter/pages/home/widgets/text_price.dart';
@@ -9,17 +7,21 @@ import 'package:macbro_home/presenter/utils/app_colors.dart';
 class ProductCard extends StatelessWidget {
   final bool? saleOn;
 
-  final BannerProducts banner;
+  final String? img;
 
-  final String price;
-  final String brandOrModelName;
+  final bool? isLiked;
+
+  final String? price;
+  final String? brandOrModelName;
 
   const ProductCard(
       {Key? key,
-        this.saleOn,
-        required this.price,
-        required this.brandOrModelName,
-        required this.banner})
+      this.saleOn,
+      required this.price,
+      required this.brandOrModelName,
+      required this.img,
+        this.isLiked,
+      })
       : super(key: key);
 
   @override
@@ -39,9 +41,10 @@ class ProductCard extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-               CachedNetworkImage(
-               imageUrl: banner.image,
-                fit: BoxFit.cover,
+              Image(
+                image: NetworkImage(
+                  img!,
+                ),
               ),
               Positioned(
                 top: 0,
@@ -61,11 +64,11 @@ class ProductCard extends StatelessWidget {
                           color: AppColors.homeBackColor,
                           borderRadius: BorderRadius.circular(60),
                         ),
-                        child: const Icon(
-                          Icons.favorite,
+                        child:  Icon(
+                             Icons.favorite,
                           size: 18,
-                          color: AppColors.greyColor,
-                        )),
+                          color: isLiked !=null && isLiked!?  AppColors.blue:AppColors.greyColor),
+                        ),
                   ],
                 ),
               )
@@ -73,9 +76,11 @@ class ProductCard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        BrandOrModelName(brandOrModelName: brandOrModelName),
+        BrandOrModelName(brandOrModelName: brandOrModelName!),
         const SizedBox(height: 4),
-        Price(price: price),
+        PriceWidget(
+          price: price!,
+        ),
       ],
     );
   }

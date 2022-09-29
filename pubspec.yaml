@@ -19,15 +19,15 @@ dependencies:
   # for svg icons
   flutter_svg: ^1.1.5
 
-
-  # for work with network image
-  cached_network_image: ^3.2.1
-
+  # for connect with network
   http: ^0.13.5
 
+  #for state management
   get: ^4.6.5
 
+  #for banner
   carousel_slider: ^4.1.1
+
 
 
 dev_dependencies:

@@ -10,7 +10,8 @@ class BrandOrModelName extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       brandOrModelName,
-      style: Theme.of(context).textTheme.headline2,
+      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 18),
     );
   }
 }
